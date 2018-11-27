@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping schema="duels">
+
+    <class name="testapp.db.beans.Player" table="d_player" dynamic-update="true">
+        <cache usage="read-write"/>
+        <id column="id" name="id" type="int">
+            <generator class="assigned"/>
+        </id>
+        <property name="level" type="int" not-null="true" column="level"/>
+        <property name="currHp" type="int" not-null="true" column="currHp"/>
+    </class>
+
+</hibernate-mapping>
