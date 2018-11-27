@@ -62,4 +62,9 @@ public class HibernateUtil {
     public static <T> T get(Class<T> clazz, Integer id) {
         return id != null && id > 0 ? (T) getSession().get(clazz, id) : null;
     }
+
+    public static Object persist(Object o) {
+        getSession().persist(o);
+        return o;
+    }
 }

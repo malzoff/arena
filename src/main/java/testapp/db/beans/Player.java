@@ -4,20 +4,22 @@ public class Player {
 
     private int id;
     private int level;
+    private int rating;
 
-    private int currHp;
+    transient private int currHp;
 
     public Player() {
     }
 
-    public Player(int id, int level) {
+    public Player(int id) {
         this.id = id;
-        this.level = level;
+        this.level = 1;
+        this.rating = 1500;
         this.currHp = getHp();
     }
 
     public int getDamage() {
-        return 10 + getLevel();
+        return 9 + getLevel();
     }
 
     public int getHp() {
@@ -40,11 +42,22 @@ public class Player {
         this.level = level;
     }
 
+    public int getRating() {
+        if (rating < 0) {
+            rating = 0;
+        }
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = Math.max(0, rating);
+    }
+
     public int getCurrHp() {
-        return currHp;
+        return Math.max(0, currHp);
     }
 
     public void setCurrHp(int currHp) {
-        this.currHp = currHp;
+        this.currHp = Math.max(0, currHp);
     }
 }

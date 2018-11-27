@@ -5,8 +5,16 @@ import testapp.db.beans.User;
 
 public class DAO {
 
+    public static User createUser(String login, String password) {
+        return (User) HibernateUtil.persist(new User(login, password));
+    }
+
+    public static Player createPlayer(User user) {
+        return (Player) HibernateUtil.persist(new Player(user.getId()));
+    }
+
     public static User getUser(int id) {
-        return (User) getBean(User.class, id);
+        return HibernateUtil.get(User.class, id);
     }
 
     private static User getUser(String login) {
@@ -17,10 +25,6 @@ public class DAO {
     }
 
     public static Player getPlayer(int id) {
-        return (Player) getBean(Player.class, id);
-    }
-
-    private static Object getBean(Class clazz, int id) {
-        return HibernateUtil.getSession().get(clazz, id);
+        return HibernateUtil.get(Player.class, id);
     }
 }

@@ -10,7 +10,7 @@
             <generator class="assigned"/>
         </id>
         <property name="level" type="int" not-null="true" column="level"/>
-        <property name="currHp" type="int" not-null="true" column="currHp"/>
+        <property name="rating" type="int" not-null="true" column="rating"/>
     </class>
 
 </hibernate-mapping>
