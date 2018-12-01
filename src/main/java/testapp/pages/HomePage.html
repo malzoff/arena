@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:wicket="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta charset="utf-8" />
 		<title>Arena Welcome Page</title>
@@ -7,6 +7,17 @@
 		<link rel="stylesheet" href="style.css" type="text/css" media="screen" title="Stylesheet" />
 	</head>
 	<body>
-
+	<ul class="feedbackPanel">
+		<li class="feedbackPanelERROR">
+			<span class="feedbackPanelERROR">Field 'Username' is required.</span>
+		</li>
+	</ul>
+	<form wicket:id="form">
+		Username: <input type="text" wicket:id="username"/>
+		<br/>
+		Password: <input type="password" wicket:id="password">
+		<br/>
+		<input type="submit" value="Enter"/>
+	</form>
 	</body>
 </html>

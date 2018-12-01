@@ -6,8 +6,6 @@ public class Player {
     private int level;
     private int rating;
 
-    transient private int currHp;
-
     public Player() {
     }
 
@@ -15,7 +13,6 @@ public class Player {
         this.id = id;
         this.level = 1;
         this.rating = 1500;
-        this.currHp = getHp();
     }
 
     public int getDamage() {
@@ -51,13 +48,5 @@ public class Player {
 
     public void setRating(int rating) {
         this.rating = Math.max(0, rating);
-    }
-
-    public int getCurrHp() {
-        return Math.max(0, currHp);
-    }
-
-    public void setCurrHp(int currHp) {
-        this.currHp = Math.max(0, currHp);
     }
 }
