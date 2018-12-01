@@ -3,6 +3,7 @@ package testapp;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
 import testapp.db.HibernateUtil;
+import testapp.pages.HomePage;
 
 public class WicketApplication extends WebApplication
 {
