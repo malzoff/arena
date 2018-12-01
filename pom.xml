@@ -42,9 +42,9 @@
     </licenses>
     <properties>
         <wicket.version>8.2.0</wicket.version>
-        <jetty9.version>9.4.12.v20180830</jetty9.version>
+        <!--<jetty9.version>9.4.12.v20180830</jetty9.version>-->
         <slf4j.version>1.7.25</slf4j.version>
-        <junit.version>4.12</junit.version>
+        <!--<junit.version>4.12</junit.version>-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- allowed values: R7, 1.0, 1.5, 2.0 or none -->
         <wtp.version>none</wtp.version>
@@ -73,26 +73,26 @@
         </dependency>
 
         <!--  JUNIT DEPENDENCY FOR TESTING -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>junit</groupId>-->
+            <!--<artifactId>junit</artifactId>-->
+            <!--<version>${junit.version}</version>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
 
         <!--  JETTY DEPENDENCIES FOR TESTING  -->
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-webapp</artifactId>
-            <scope>test</scope>
-            <version>${jetty9.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-jmx</artifactId>
-            <version>${jetty9.version}</version>
-            <scope>test</scope>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.eclipse.jetty</groupId>-->
+            <!--<artifactId>jetty-webapp</artifactId>-->
+            <!--<scope>test</scope>-->
+            <!--<version>${jetty9.version}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.eclipse.jetty</groupId>-->
+            <!--<artifactId>jetty-jmx</artifactId>-->
+            <!--<version>${jetty9.version}</version>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -112,14 +112,6 @@
             <version>8.0.13</version>
         </dependency>
 
-        <!-- uncomment if WebSocket support is needed
-        <dependency>
-            <groupId>org.eclipse.jetty.websocket</groupId>
-            <artifactId>javax-websocket-server-impl</artifactId>
-            <version>${jetty9.version}</version>
-            <scope>test</scope>
-        </dependency>
-        -->
     </dependencies>
 
     <build>
@@ -171,31 +163,22 @@
                     <showDeprecation>true</showDeprecation>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>${jetty9.version}</version>
-                <configuration>
-                    <systemProperties>
-                        <systemProperty>
-                            <name>maven.project.build.directory.test-classes</name>
-                            <value>${project.build.directory}/test-classes</value>
-                        </systemProperty>
-                    </systemProperties>
-                    <jettyXml>
-                        ${project.basedir}/src/test/jetty/jetty.xml,${project.basedir}/src/test/jetty/jetty-ssl.xml,${project.basedir}/src/test/jetty/jetty-http.xml,${project.basedir}/src/test/jetty/jetty-https.xml
-                    </jettyXml>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-eclipse-plugin</artifactId>
-                <version>2.10</version>
-                <configuration>
-                    <downloadSources>true</downloadSources>
-                    <wtpversion>${wtp.version}</wtpversion>
-                </configuration>
-            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.eclipse.jetty</groupId>-->
+                <!--<artifactId>jetty-maven-plugin</artifactId>-->
+                <!--<version>${jetty9.version}</version>-->
+                <!--<configuration>-->
+                    <!--<systemProperties>-->
+                        <!--<systemProperty>-->
+                            <!--<name>maven.project.build.directory.test-classes</name>-->
+                            <!--<value>${project.build.directory}/test-classes</value>-->
+                        <!--</systemProperty>-->
+                    <!--</systemProperties>-->
+                    <!--<jettyXml>-->
+                        <!--${project.basedir}/src/test/jetty/jetty.xml,${project.basedir}/src/test/jetty/jetty-ssl.xml,${project.basedir}/src/test/jetty/jetty-http.xml,${project.basedir}/src/test/jetty/jetty-https.xml-->
+                    <!--</jettyXml>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
