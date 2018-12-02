@@ -5,8 +5,10 @@ h2{font-size: 1.2em; margin: 8px 0;}
 .minor{font-size:small; color:#888;}
 a{color:#044f86;}
 li {list-style:none;}
-input {width:100%; margin: 8px auto;}
+form{border: 1px solid #005f8a; margin: 4px auto;}
+input {width:99%; margin: 8px auto;}
 .btn {
+    margin: 6px auto;
     border: 1px solid #005f8a;
     border-radius: 4px;
     width: 100%;
@@ -15,6 +17,5 @@ input {width:100%; margin: 8px auto;}
     padding: 4px;
     color:#4dabf3;
     text-shadow: 1px 1px 1px black;
-    margin: 4px 0;
     display: block;
 }
