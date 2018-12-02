@@ -5,6 +5,7 @@ import org.hibernate.CacheMode;
 import org.hibernate.FlushMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil {
@@ -14,7 +15,11 @@ public class HibernateUtil {
 
     public static void init() {
         try {
-            sessionFactory = new Configuration().configure().buildSessionFactory();
+            Configuration configuration = new Configuration().configure();
+            sessionFactory = configuration.buildSessionFactory(
+                    new StandardServiceRegistryBuilder()
+                            .applySettings(configuration.getProperties())
+                            .build());
         } catch (Throwable ex) {
             System.err.println("Initial SessionFactory creation failed." + ex);
             throw new ExceptionInInitializerError(ex);
