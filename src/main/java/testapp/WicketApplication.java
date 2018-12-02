@@ -12,8 +12,8 @@ import java.util.regex.Pattern;
 
 public class WicketApplication extends WebApplication
 {
-	public static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s).*$", Pattern.UNICODE_CASE);
-	public static final Pattern USERNAME_PATTERN = Pattern.compile("^[a-zA-Z][a-zA-Z0-9]+", Pattern.CASE_INSENSITIVE);
+	public static final Pattern PASSWORD_PATTERN = Pattern.compile("(?=^.{6,16}$)((?=.*\\d)|(?=.*[a-z]))(?=.*[A-Z])(?!.*\\s).*$", Pattern.UNICODE_CASE);
+	public static final Pattern USERNAME_PATTERN = Pattern.compile("^[a-zA-Z][a-zA-Z0-9]{5,15}$", Pattern.CASE_INSENSITIVE);
 
 	@Override
 	public Class<? extends WebPage> getHomePage()

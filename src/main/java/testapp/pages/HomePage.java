@@ -10,6 +10,9 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.validator.StringValidator;
+import testapp.WebSession;
+import testapp.db.DAO;
+import testapp.db.beans.User;
 
 import static testapp.WicketApplication.PASSWORD_PATTERN;
 import static testapp.WicketApplication.USERNAME_PATTERN;
@@ -23,7 +26,7 @@ public class HomePage extends WebPage {
 
         add(new FeedbackPanel("feedbackPanel"));
 
-        Form form = new Form<MarkupContainer>("form") {
+        add(new Form<MarkupContainer>("form") {
 
             private TextField<String> usernameField;
             private PasswordTextField passwordField;
@@ -47,11 +50,27 @@ public class HomePage extends WebPage {
                     }
                 });
             }
+
             @Override
             protected void onSubmit() {
-                String username = (String)usernameField.getDefaultModelObject();
-                String password = (String)passwordField.getDefaultModelObject();
+                validate();
+                String username = usernameField.getModelObject();
+                String password = passwordField.getModelObject();
+                if (usernameField.isValid() && passwordField.isValid()) {
+                    User user = DAO.getUser(username);
+                    if (user == null) {
+                        user = DAO.createUser(username, password);
+                        DAO.createPlayer(user);
+                        WebSession.get().setUser(user);
+                        setResponsePage(MenuPage.class);
+                    } else if (user.getPassword().equals(password)) {
+                        WebSession.get().setUser(user);
+                        setResponsePage(MenuPage.class);
+                    } else {
+                        error(getString("invalidUserPassword"));
+                    }
+                }
             }
-        };
+        });
     }
 }

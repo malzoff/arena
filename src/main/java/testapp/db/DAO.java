@@ -17,7 +17,7 @@ public class DAO {
         return HibernateUtil.get(User.class, id);
     }
 
-    private static User getUser(String login) {
+    public static User getUser(String login) {
         Integer id = (Integer) HibernateUtil.getSession().createQuery("select id from User u where u.login=:login")
                 .setString("login", login)
                 .uniqueResult();

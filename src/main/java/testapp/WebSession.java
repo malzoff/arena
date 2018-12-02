@@ -6,11 +6,16 @@ import testapp.db.beans.User;
 public class WebSession extends org.apache.wicket.protocol.http.WebSession {
 
     private int userId;
+
     private int playerState;
     private int currentHp;
 
     public WebSession(Request request) {
         super(request);
+    }
+
+    public static WebSession get() {
+        return (WebSession) org.apache.wicket.protocol.http.WebSession.get();
     }
 
     public int getUserId() {
