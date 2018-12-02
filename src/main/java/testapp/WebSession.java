@@ -2,12 +2,13 @@ package testapp;
 
 import org.apache.wicket.request.Request;
 import testapp.db.beans.User;
+import testapp.game.PlayerState;
 
 public class WebSession extends org.apache.wicket.protocol.http.WebSession {
 
     private int userId;
 
-    private int playerState;
+    private PlayerState playerState = PlayerState.IDLE;
     private int currentHp;
 
     public WebSession(Request request) {
@@ -27,11 +28,11 @@ public class WebSession extends org.apache.wicket.protocol.http.WebSession {
         WebSession.get().bind();
     }
 
-    public int getPlayerState() {
+    public PlayerState getPlayerState() {
         return playerState;
     }
 
-    public void setPlayerState(int playerState) {
+    public void setPlayerState(PlayerState playerState) {
         this.playerState = playerState;
     }
 

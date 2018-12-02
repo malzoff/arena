@@ -1,7 +1,6 @@
 package testapp.pages;
 
 import org.apache.wicket.MarkupContainer;
-import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
@@ -17,7 +16,7 @@ import testapp.db.beans.User;
 import static testapp.WicketApplication.PASSWORD_PATTERN;
 import static testapp.WicketApplication.USERNAME_PATTERN;
 
-public class HomePage extends WebPage {
+public class HomePage extends BasePage {
 
     private static final long serialVersionUID = 1L;
 
