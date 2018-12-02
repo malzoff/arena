@@ -2,8 +2,8 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
     <entry key="StringValidator.range">Поле '${label}' должно быть длиной от ${minimum} до ${maximum}.</entry>
-    <entry key="invalidUserName">Допускаются только символы латинского алфавита и цифры. Первым символом должна быть быква.</entry>
-    <entry key="invalidPassword">Допускаются только символы латинского алфавита и цифры.</entry>
+    <entry key="invalidUserName">Поле '${label}': допускаются только символы латинского алфавита и цифры. Первым символом должна быть быква.</entry>
+    <entry key="invalidPassword">Поле '${label}': допускаются только символы латинского алфавита и цифры.</entry>
     <entry key="invalidUserPassword">Неверный логин и(или) пароль.</entry>
     <entry key="enter">Войти</entry>
 </properties>
