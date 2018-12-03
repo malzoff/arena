@@ -1,6 +1,8 @@
 package testapp;
 
 import org.apache.wicket.request.Request;
+import testapp.db.HibernateUtil;
+import testapp.db.beans.Player;
 import testapp.db.beans.User;
 import testapp.game.PlayerState;
 
@@ -47,5 +49,9 @@ public class WebSession extends org.apache.wicket.protocol.http.WebSession {
     public void logout() {
         userId = 0;
         WebSession.get().invalidate();
+    }
+
+    public Player getPlayer() {
+        return HibernateUtil.get(Player.class, userId);
     }
 }

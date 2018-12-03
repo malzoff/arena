@@ -7,6 +7,8 @@ import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Response;
 import testapp.db.HibernateUtil;
 import testapp.pages.HomePage;
+import testapp.pages.MenuPage;
+import testapp.pages.QueuePage;
 
 import java.util.regex.Pattern;
 
@@ -26,7 +28,7 @@ public class WicketApplication extends WebApplication
 	{
 		super.init();
 		HibernateUtil.init();
-
+		mountPages();
 	}
 
 	@Override
@@ -34,5 +36,9 @@ public class WicketApplication extends WebApplication
 		return new WebSession(request);
 	}
 
-
+	private void mountPages() {
+		mountPage("/welcome", HomePage.class);
+		mountPage("/menu", MenuPage.class);
+		mountPage("/queue", QueuePage.class);
+	}
 }

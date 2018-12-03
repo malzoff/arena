@@ -6,7 +6,6 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import testapp.WebSession;
 
 import static testapp.game.PlayerState.IDLE;
-import static testapp.game.PlayerState.IN_QUEUE;
 
 public class MenuPage extends BasePage {
 
@@ -20,7 +19,6 @@ public class MenuPage extends BasePage {
             @Override
             public void onClick() {
                 if (getPlayerState() == IDLE) {
-                    setPlayerState(IN_QUEUE);
                     setResponsePage(QueuePage.class);
                 }
             }

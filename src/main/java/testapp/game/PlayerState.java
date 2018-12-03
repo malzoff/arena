@@ -5,6 +5,6 @@ public enum PlayerState {
     IDLE
     , IN_QUEUE
     , READY
-    , FIGHTING
+    , IN_COMBAT
     , RESULTS
 }
