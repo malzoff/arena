@@ -4,13 +4,11 @@ import org.apache.wicket.request.Request;
 import testapp.db.HibernateUtil;
 import testapp.db.beans.Player;
 import testapp.db.beans.User;
-import testapp.game.PlayerState;
 
 public class WebSession extends org.apache.wicket.protocol.http.WebSession {
 
     private int userId;
 
-    private PlayerState playerState = PlayerState.IDLE;
     private int currentHp;
 
     public WebSession(Request request) {
@@ -30,14 +28,6 @@ public class WebSession extends org.apache.wicket.protocol.http.WebSession {
         WebSession.get().bind();
     }
 
-    public PlayerState getPlayerState() {
-        return playerState;
-    }
-
-    public void setPlayerState(PlayerState playerState) {
-        this.playerState = playerState;
-    }
-
     public int getCurrentHp() {
         return Math.max(0, currentHp);
     }
@@ -49,6 +39,10 @@ public class WebSession extends org.apache.wicket.protocol.http.WebSession {
     public void logout() {
         userId = 0;
         WebSession.get().invalidate();
+    }
+
+    public boolean isLoggedIn() {
+        return !WebSession.get().isTemporary() && !WebSession.get().isSessionInvalidated() && userId > 0;
     }
 
     public Player getPlayer() {

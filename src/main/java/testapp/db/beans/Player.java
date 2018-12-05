@@ -1,10 +1,13 @@
 package testapp.db.beans;
 
+import testapp.game.PlayerState;
+
 public class Player {
 
     private int id;
     private int level;
     private int rating;
+    private transient PlayerState state;
 
     public Player() {
     }
@@ -48,5 +51,13 @@ public class Player {
 
     public void setRating(int rating) {
         this.rating = Math.max(0, rating);
+    }
+
+    public PlayerState getState() {
+        return state;
+    }
+
+    public void setState(PlayerState state) {
+        this.state = state;
     }
 }
