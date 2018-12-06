@@ -11,6 +11,10 @@
         </id>
         <property name="level" type="int" not-null="true" column="level"/>
         <property name="rating" type="int" not-null="true" column="rating"/>
+        <property name="state" type="int" not-null="true">
+            <column name="state" default="0"/>
+        </property>
+        <one-to-one name="enemy" entity-name="testapp.db.beans.Player" foreign-key="none"/>
     </class>
 
 </hibernate-mapping>

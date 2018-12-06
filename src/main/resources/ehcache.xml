@@ -15,7 +15,7 @@
     <cache name="org.hibernate.cache.spi.UpdateTimestampsCache"     maxElementsInMemory="1000"/>
     <cache name="org.hibernate.cache.internal.StandardQueryCache"   maxElementsInMemory="1000"/>
 
-    <cache name="m.lazyco.db.beans.User" maxElementsInMemory="1000"/>
-    <cache name="m.lazyco.db.beans.Player" maxElementsInMemory="1000"/>
+    <cache name="testapp.db.beans.User" maxElementsInMemory="1000"/>
+    <cache name="testapp.db.beans.Player" maxElementsInMemory="1000"/>
 
 </ehcache>

@@ -7,15 +7,18 @@ public class Player {
     private int id;
     private int level;
     private int rating;
-    private transient PlayerState state;
+    private int state;
+    private Player enemy;
 
     public Player() {
     }
 
     public Player(int id) {
         this.id = id;
-        this.level = 1;
-        this.rating = 1500;
+        level = 1;
+        rating = 1500;
+        state = PlayerState.IDLE;
+        enemy = null;
     }
 
     public int getDamage() {
@@ -53,11 +56,19 @@ public class Player {
         this.rating = Math.max(0, rating);
     }
 
-    public PlayerState getState() {
+    public int getState() {
         return state;
     }
 
-    public void setState(PlayerState state) {
+    public void setState(int state) {
         this.state = state;
+    }
+
+    public Player getEnemy() {
+        return enemy;
+    }
+
+    public void setEnemy(Player enemy) {
+        this.enemy = enemy;
     }
 }
