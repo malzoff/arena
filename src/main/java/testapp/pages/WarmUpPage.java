@@ -21,7 +21,7 @@ public class WarmUpPage extends BasePage {
             protected void onTimer(AjaxRequestTarget target) {
                 if (startTime - TimeUtil.now() <= 0) {
                     setPlayerState(PlayerState.IN_COMBAT);
-                    
+                    setResponsePage(CombatPage.class, new PageParameters());
                 }
             }
         });
