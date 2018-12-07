@@ -11,36 +11,25 @@ import testapp.game.QueueScheduler;
 
 public class QueuePage extends BasePage {
 
-    private int qSize;
-
     public QueuePage(PageParameters parameters) {
         super(parameters);
-        if (getPlayer().getState() ==  PlayerState.IDLE) {
-            if(QueueScheduler.addPlayer(getPlayer())) {
-                getPlayer().setState(PlayerState.IN_QUEUE);
-            }
-        }
-        qSize = QueueScheduler.getQueueSize();
-        add(new Label("qSize", Integer.toString(qSize)) {
-        });
+        System.err.println("stateful=" + !isStateless());
 
-        add(new AbstractAjaxTimerBehavior(Duration.milliseconds(500)) {
+        add(new Label("qSize", Integer.toString(QueueScheduler.getQueueSize())));
+        add(new AbstractAjaxTimerBehavior(Duration.milliseconds(100)) {
             @Override
             protected void onTimer(AjaxRequestTarget target) {
-                qSize = QueueScheduler.getQueueSize();
-                if (WebSession.get().isLoggedIn()
-                        && getPlayer().getState() == PlayerState.READY
-                        && getPlayer().getEnemy() != null
-                ) {
-                    setResponsePage(CombatPage.class);
+                if (WebSession.get().isLoggedIn()) {
+                    if (getPlayer().getState() == PlayerState.IDLE) {
+                        if (QueueScheduler.addPlayer(getPlayer())) {
+                            getPlayer().setState(PlayerState.IN_QUEUE);
+                        }
+                    }
+                    if (getPlayer().getState() == PlayerState.READY && getPlayer().getEnemy() != null) {
+                        setResponsePage(CombatPage.class);
+                    }
                 }
             }
         });
-    }
-
-    @Override
-    protected void onBeforeRender() {
-        super.onBeforeRender();
-        System.err.println("onBeforeRender::qSize=" + qSize);
     }
 }

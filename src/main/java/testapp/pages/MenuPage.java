@@ -13,7 +13,6 @@ public class MenuPage extends BasePage {
 
     public MenuPage(PageParameters parameters) {
         super(parameters);
-
         setPlayerState(IDLE);
         add(new StatelessLink<MarkupContainer>("enterQueue") {
             @Override

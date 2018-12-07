@@ -39,9 +39,9 @@ public class WebSession extends org.apache.wicket.protocol.http.WebSession {
     }
 
     public void logout() {
+        QueueScheduler.removePlayer(userId);
         userId = 0;
         arenaPlayer = null;
-        QueueScheduler.removePlayer(getPlayer());
         WebSession.get().invalidate();
     }
 
