@@ -2,6 +2,7 @@ package testapp.pages;
 
 import org.apache.wicket.ajax.AbstractAjaxTimerBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.AjaxSelfUpdatingTimerBehavior;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.util.time.Duration;
@@ -14,8 +15,10 @@ public class QueuePage extends BasePage {
     public QueuePage(PageParameters parameters) {
         super(parameters);
         System.err.println("stateful=" + !isStateless());
+        Label label = new Label("qSize", Integer.toString(QueueScheduler.getQueueSize()));
+        add(label);
+        label.add(new AjaxSelfUpdatingTimerBehavior(Duration.seconds(1)));
 
-        add(new Label("qSize", Integer.toString(QueueScheduler.getQueueSize())));
         add(new AbstractAjaxTimerBehavior(Duration.milliseconds(100)) {
             @Override
             protected void onTimer(AjaxRequestTarget target) {
@@ -26,7 +29,7 @@ public class QueuePage extends BasePage {
                         }
                     }
                     if (getPlayer().getState() == PlayerState.READY && getPlayer().getEnemy() != null) {
-                        setResponsePage(CombatPage.class);
+                        setResponsePage(WarmUpPage.class);
                     }
                 }
             }

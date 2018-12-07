@@ -11,9 +11,7 @@ import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.cycle.RequestCycleListenerCollection;
 import testapp.db.HibernateUtil;
 import testapp.game.QueueScheduler;
-import testapp.pages.HomePage;
-import testapp.pages.MenuPage;
-import testapp.pages.QueuePage;
+import testapp.pages.*;
 
 import java.util.regex.Pattern;
 
@@ -44,6 +42,8 @@ public class WicketApplication extends WebApplication {
         mountPage("/welcome", HomePage.class);
         mountPage("/menu", MenuPage.class);
         mountPage("/queue", QueuePage.class);
+        mountPage("/queue/warmup", WarmUpPage.class);
+        mountPage("/combat", CombatPage.class);
     }
 
     @Override

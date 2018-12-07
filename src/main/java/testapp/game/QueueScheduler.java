@@ -16,6 +16,7 @@ public class QueueScheduler {
     public QueueScheduler() {
         stopped = false;
         arenaQueue.clear();
+        queueSize = 0;
         new Thread(this::run).start();
     }
 
@@ -40,7 +41,7 @@ public class QueueScheduler {
     }
 
     public static int getQueueSize() {
-        return arenaQueue.size();
+        return queueSize;
     }
 
     public static boolean removePlayer(int playerId) {
@@ -55,22 +56,19 @@ public class QueueScheduler {
     private void run() {
         while (!stopped) {
             try {
-                System.err.println("start Queue processing...");
                 processQueue();
-                System.err.println("Queue:" + arenaQueue.toString());
                 HibernateUtil.closeSession(true);
             } catch (Throwable t) {
                 t.printStackTrace();
                 HibernateUtil.closeSession(false);
             }
-            System.err.println("End queue proessing.");
             try {
                 Thread.sleep(500);
-            } catch(Throwable tt) {
+            } catch (Throwable tt) {
                 /*do nothing*/
             }
         }
-        synchronized(this) {
+        synchronized (this) {
             notifyAll();
         }
     }
@@ -79,12 +77,8 @@ public class QueueScheduler {
         synchronized (arenaQueue) {
             while (arenaQueue.size() >= 2) {
                 Player player1 = HibernateUtil.get(Player.class, arenaQueue.poll());
-                System.err.println("player1#" + player1.getId());
                 Player player2 = HibernateUtil.get(Player.class, arenaQueue.poll());
-                System.err.println("player2#" + player2.getId());
                 queueSize = Math.min(queueSize - 2, 0);
-                System.err.println("Queue size:" + queueSize);
-                System.err.println("Actual queue size:" + arenaQueue.size());
                 player1.setState(READY);
                 player1.setEnemy(player2);
                 player2.setState(READY);

@@ -5,10 +5,12 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import testapp.WebSession;
 import testapp.db.beans.Player;
 
-public abstract class BasePage extends WebPage {
+abstract class BasePage extends WebPage {
 
-    public BasePage(PageParameters parameters) {
-
+    BasePage(PageParameters parameters) {
+        if (!WebSession.get().isLoggedIn()) {
+            setResponsePage(HomePage.class, new PageParameters());
+        }
     }
 
     protected Player getPlayer() {
