@@ -8,7 +8,7 @@ import testapp.db.beans.Player;
 abstract class BasePage extends WebPage {
 
     BasePage(PageParameters parameters) {
-        if (!WebSession.get().isLoggedIn()) {
+        if (!WebSession.get().isLoggedIn() && getPageClass() != HomePage.class) {
             setResponsePage(HomePage.class, new PageParameters());
         }
     }
