@@ -17,7 +17,7 @@ public class QueuePage extends BasePage {
         System.err.println("stateful=" + !isStateless());
         Label label = new Label("qSize", Integer.toString(QueueScheduler.getQueueSize()));
         add(label);
-        label.add(new AjaxSelfUpdatingTimerBehavior(Duration.seconds(1)));
+        label.add(new AjaxSelfUpdatingTimerBehavior(Duration.seconds(500)));
 
         add(new AbstractAjaxTimerBehavior(Duration.milliseconds(100)) {
             @Override

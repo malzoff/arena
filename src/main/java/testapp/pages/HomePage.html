@@ -1,24 +1,18 @@
-<!DOCTYPE html>
-<html xmlns:wicket="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8"/>
-    <title>Arena Welcome Page</title>
-    <link href='https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:regular,bold' rel='stylesheet'
-          type='text/css'/>
-    <link rel="stylesheet" href="style.css" type="text/css" media="screen" title="Stylesheet"/>
-</head>
-<body>
-<span class="minor" wicket:id="feedbackPanel"/>
-<form style="width:" wicket:id="form">
-    <div style="display:block;">
-        Username:<br/>
-        <input type="text" wicket:id="username"/>
-    </div>
-    <div style="display:block;">
-        Password:<br/>
-        <input type="password" wicket:id="password">
-    </div>
-    <input class="btn" type="submit" value="Enter"/>
-</form>
-</body>
+<?xml version="1.0" encoding="UTF-8"?>
+<html lang="en" xmlns:wicket="http://www.w3.org/1999/xlink">
+<wicket:extend>
+    <span class="minor" wicket:id="feedbackPanel"/>
+    <form style="width:" wicket:id="form">
+        <div style="display:block;">
+            Username:<br/>
+            <input type="text" wicket:id="username"/>
+        </div>
+        <div style="display:block;">
+            Password:<br/>
+            <input type="password" wicket:id="password">
+        </div>
+        <input class="btn" type="submit" value="Enter"/>
+    </form>
+
+</wicket:extend>
 </html>

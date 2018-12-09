@@ -26,6 +26,8 @@ public class HomePage extends BasePage {
 
         add(new FeedbackPanel("feedbackPanel"));
 
+
+
         add(new Form<MarkupContainer>("form") {
 
             private TextField<String> usernameField;
