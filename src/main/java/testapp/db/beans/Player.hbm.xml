@@ -14,7 +14,9 @@
         <property name="state" type="int" not-null="true">
             <column name="state" default="0"/>
         </property>
-        <one-to-one name="enemy" entity-name="testapp.db.beans.Player" foreign-key="none"/>
+        <property name="enemyId" type="int" not-null="true">
+            <column name="enemyId" default="0"/>
+        </property>
     </class>
 
 </hibernate-mapping>

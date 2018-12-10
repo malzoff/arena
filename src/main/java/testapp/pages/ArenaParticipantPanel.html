@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:wicket="http://www.w3.org/1999/xhtml">
 <wicket:panel>
-    <div class="form" style="border: 1px solid #005f8a; border-radius: 4px;">
-        <div>Имя: <span wicket:id="name"/></div>
-        <div>Урон: <span wicket:id="damage"/></div>
-        <div wicket:id="hp" class="hpBar" style=""/>
+    <div style="border: 1px solid #005f8a; border-radius: 4px;">
+        <div style="margin: 8px auto;"><span wicket:id="name"/></div>
+        <div style="margin: 8px auto;">Урон: <span wicket:id="damage"/></div>
+        <div style="margin: 8px auto;">
+            <div wicket:id="hp" class="hpBar" style=""/>
+        </div>
     </div>
 </wicket:panel>
 </html>

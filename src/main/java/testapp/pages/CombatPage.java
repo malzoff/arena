@@ -1,12 +1,15 @@
 package testapp.pages;
 
 import org.apache.wicket.MarkupContainer;
+import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.StatelessLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import testapp.db.HibernateUtil;
+import testapp.db.beans.Player;
 import testapp.game.ArenaParticipant;
 
 import java.util.ArrayList;
@@ -20,12 +23,21 @@ public class CombatPage extends BasePage {
 
     public CombatPage(PageParameters parameters) {
         super(parameters);
+        int userId = parameters.get("id").toInt(0);
+        if (userId == 0) throw new RestartResponseException(HomePage.class, new PageParameters());
+        Player player = HibernateUtil.get(Player.class, userId);
+        System.err.println("userId#" + userId);
+        System.err.println("myPlayerId#" + player.getId());
+        System.err.println("myPlayerEnemyId#" + player.getEnemyId());
+
         if (myModel == null) {
-            myModel = (IModel<ArenaParticipant>) () -> new ArenaParticipant(getPlayer());
+            myModel = (IModel<ArenaParticipant>) () -> new ArenaParticipant(player);
         }
         if (enemyModel == null) {
-            enemyModel = (IModel<ArenaParticipant>) () -> new ArenaParticipant(getPlayer().getEnemy());
+            enemyModel = (IModel<ArenaParticipant>) () -> new ArenaParticipant(player.getEnemy());
         }
+        System.err.println("enemy:" + enemyModel.getObject().getId());
+        System.err.println("me" + myModel.getObject().getId());
 
         add(new ArenaParticipantPanel("myPanel", myModel));
         add(new ArenaParticipantPanel("enemyPanel", enemyModel));

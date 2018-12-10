@@ -1,5 +1,6 @@
 package testapp.db.beans;
 
+import testapp.db.DAO;
 import testapp.game.PlayerState;
 
 public class Player {
@@ -8,7 +9,7 @@ public class Player {
     private int level;
     private int rating;
     private int state;
-    private Player enemy;
+    private int enemyId;
 
     public Player() {
     }
@@ -18,7 +19,7 @@ public class Player {
         level = 1;
         rating = 1500;
         state = PlayerState.IDLE;
-        enemy = null;
+        enemyId = 0;
     }
 
     public int getDamage() {
@@ -64,11 +65,15 @@ public class Player {
         this.state = state;
     }
 
-    public Player getEnemy() {
-        return enemy;
+    public int getEnemyId() {
+        return enemyId;
     }
 
-    public void setEnemy(Player enemy) {
-        this.enemy = enemy;
+    public void setEnemyId(int enemyId) {
+        this.enemyId = enemyId;
+    }
+
+    public Player getEnemy() {
+        return DAO.getPlayer(enemyId);
     }
 }

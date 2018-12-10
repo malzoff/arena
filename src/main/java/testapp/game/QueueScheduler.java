@@ -1,5 +1,6 @@
 package testapp.game;
 
+import testapp.db.DAO;
 import testapp.db.HibernateUtil;
 import testapp.db.beans.Player;
 
@@ -76,13 +77,13 @@ public class QueueScheduler {
     private void processQueue() {
         synchronized (arenaQueue) {
             while (arenaQueue.size() >= 2) {
-                Player player1 = HibernateUtil.get(Player.class, arenaQueue.poll());
-                Player player2 = HibernateUtil.get(Player.class, arenaQueue.poll());
+                Player player1 = DAO.getPlayer(arenaQueue.poll());
+                Player player2 = DAO.getPlayer(arenaQueue.poll());
                 queueSize = Math.min(queueSize - 2, 0);
                 player1.setState(READY);
-                player1.setEnemy(player2);
+                player1.setEnemyId(player2.getId());
                 player2.setState(READY);
-                player2.setEnemy(player1);
+                player2.setEnemyId(player1.getId());
             }
             HibernateUtil.closeSession(true);
             arenaQueue.notifyAll();

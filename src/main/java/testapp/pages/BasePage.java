@@ -39,6 +39,10 @@ abstract class BasePage extends WebPage {
         }
     }
 
+    protected int getUserId() {
+        return WebSession.get().getUserId();
+    }
+
     public <T> IModel<T> getModel(T o) {
         return (IModel<T>) () -> o;
     }

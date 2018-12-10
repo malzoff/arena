@@ -25,11 +25,13 @@ public class QueuePage extends BasePage {
 
             @Override
             public void onClick() {
-                if (getPlayerState() == PlayerState.IDLE) {
-                    getPlayer().setState(PlayerState.IN_QUEUE);
+                if (WebSession.get().isLoggedIn()) {
+                    if (QueueScheduler.addPlayer(getPlayer())) {
+                        getPlayer().setState(PlayerState.IN_QUEUE);
+                    }
                     setEnabled(false).setVisible(false);
+                    setResponsePage(QueuePage.class, new PageParameters());
                 }
-                setResponsePage(QueuePage.class, new PageParameters());
             }
         });
         add(new WebMarkupContainer("processing"));
@@ -37,11 +39,6 @@ public class QueuePage extends BasePage {
             @Override
             protected void onTimer(AjaxRequestTarget target) {
                 if (WebSession.get().isLoggedIn()) {
-                    if (getPlayer().getState() == PlayerState.IDLE) {
-                        if (QueueScheduler.addPlayer(getPlayer())) {
-                            getPlayer().setState(PlayerState.IN_QUEUE);
-                        }
-                    }
                     if (getPlayer().getState() == PlayerState.READY && getPlayer().getEnemy() != null) {
                         setResponsePage(WarmUpPage.class);
                     }

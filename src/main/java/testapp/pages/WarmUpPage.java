@@ -7,7 +7,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.util.time.Duration;
-import testapp.db.HibernateUtil;
+import testapp.db.DAO;
 import testapp.db.beans.User;
 import testapp.game.PlayerState;
 import testapp.game.TimeUtil;
@@ -29,14 +29,14 @@ public class WarmUpPage extends BasePage {
             protected void onTimer(AjaxRequestTarget target) {
                 if (startTime - TimeUtil.now() <= 0) {
                     setPlayerState(PlayerState.IN_COMBAT);
-                    setResponsePage(CombatPage.class, new PageParameters());
+                    setResponsePage(CombatPage.class, new PageParameters().set("id", getUserId()));
                 }
             }
         });
     }
 
     private String getEmemyName() {
-        User user = HibernateUtil.get(User.class, getPlayer().getEnemy().getId());
+        User user = DAO.getUser(getPlayer().getEnemyId());
         return user == null ? "отсутствует" : user.getLogin();
     }
 }
