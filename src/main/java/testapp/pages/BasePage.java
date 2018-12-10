@@ -2,6 +2,7 @@ package testapp.pages;
 
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import testapp.WebSession;
@@ -35,6 +36,10 @@ abstract class BasePage extends WebPage {
         if (!WebSession.get().isLoggedIn() && getPageClass() != HomePage.class) {
             setResponsePage(HomePage.class, new PageParameters());
         }
+    }
+
+    public <T> IModel<T> getModel(T o) {
+        return (IModel<T>) () -> o;
     }
 
     @Override

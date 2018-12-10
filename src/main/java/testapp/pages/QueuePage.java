@@ -7,7 +7,6 @@ import org.apache.wicket.ajax.AjaxSelfUpdatingTimerBehavior;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.StatelessLink;
-import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.util.time.Duration;
 import testapp.WebSession;
@@ -18,10 +17,10 @@ public class QueuePage extends BasePage {
 
     public QueuePage(PageParameters parameters) {
         super(parameters);
-        add(new Label("qSize", (IModel<Integer>) () -> QueueScheduler.getQueueSize())
+        add(new Label("qSize", getModel(QueueScheduler.getQueueSize()))
                 .add(new AjaxSelfUpdatingTimerBehavior(Duration.seconds(500)))
         );
-        add(new Label("rating", (IModel<Integer>) () -> getPlayer().getRating()));
+        add(new Label("rating", getModel(getPlayer().getRating())));
         add(new StatelessLink<MarkupContainer>("enterQueue") {
 
             @Override
