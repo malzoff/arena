@@ -29,15 +29,15 @@ public class QueueScheduler {
     }
 
     public static boolean addPlayer(Player player) {
-        if (arenaQueue.contains(player.getId()) || arenaQueue.add(player.getId())) {
+        boolean inQueue = arenaQueue.contains(player.getId());
+        if (inQueue) {
+            return true;
+        } else if (arenaQueue.add(player.getId())) {
             queueSize++;
-            System.err.println("player#" + player.getId() + " added to queue");
-            System.err.println("Queue:" + arenaQueue.toString());
             return true;
         } else {
             return false;
         }
-
     }
 
     public static int getQueueSize() {

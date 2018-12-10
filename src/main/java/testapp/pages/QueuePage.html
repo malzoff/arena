@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html lang="en" xmlns:wicket="http://www.w3.org/1999/xlink">
-<wicket:extend>
-<h1>Подбор противника...</h1>
+<wicket:extend style="text-align: center;">
+    <div class="h1" style="margin: 16px auto;">Мой рейтинг: <span wicket:id="rating"/></div>
+    <a class="btn"  wicket:id="enterQueue">Начать дуэль</a>
+<div class="h2" style="text-align: center;" wicket:id="processing">Подбор противника...</div>
 <h2>Игроков в очереди: <span wicket:id="qSize"/></h2>
 </wicket:extend>
 </html>

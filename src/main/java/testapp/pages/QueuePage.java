@@ -1,9 +1,13 @@
 package testapp.pages;
 
+import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AbstractAjaxTimerBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.AjaxSelfUpdatingTimerBehavior;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.StatelessLink;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.util.time.Duration;
 import testapp.WebSession;
@@ -14,11 +18,22 @@ public class QueuePage extends BasePage {
 
     public QueuePage(PageParameters parameters) {
         super(parameters);
-        System.err.println("stateful=" + !isStateless());
-        Label label = new Label("qSize", Integer.toString(QueueScheduler.getQueueSize()));
-        add(label);
-        label.add(new AjaxSelfUpdatingTimerBehavior(Duration.seconds(500)));
+        add(new Label("qSize", (IModel<Integer>) () -> QueueScheduler.getQueueSize())
+                .add(new AjaxSelfUpdatingTimerBehavior(Duration.seconds(500)))
+        );
+        add(new Label("rating", (IModel<Integer>) () -> getPlayer().getRating()));
+        add(new StatelessLink<MarkupContainer>("enterQueue") {
 
+            @Override
+            public void onClick() {
+                if (getPlayerState() == PlayerState.IDLE) {
+                    getPlayer().setState(PlayerState.IN_QUEUE);
+                    setEnabled(false).setVisible(false);
+                }
+                setResponsePage(QueuePage.class, new PageParameters());
+            }
+        });
+        add(new WebMarkupContainer("processing"));
         add(new AbstractAjaxTimerBehavior(Duration.milliseconds(100)) {
             @Override
             protected void onTimer(AjaxRequestTarget target) {
@@ -34,5 +49,12 @@ public class QueuePage extends BasePage {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onBeforeRender() {
+        super.onBeforeRender();
+        get("enterQueue").setEnabled(getPlayerState() == PlayerState.IDLE).setVisible(getPlayerState() == PlayerState.IDLE);
+        get("processing").setVisible(getPlayer().getState() == PlayerState.IN_QUEUE);
     }
 }

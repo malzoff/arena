@@ -2,6 +2,8 @@ html, body {font-family: Arial, Verdana, Tahoma, Sans-Serif;font-size:1em;}
 body{ max-width:320px; min-width:240px; margin: 0 auto; padding:0; color:#367cb1; background-color:#002b4e;}
 h1{font-size: 1.5em; margin: 8px 0;}
 h2{font-size: 1.2em; margin: 8px 0;}
+.h1{font-size: 1.5em; margin: 8px 0;}
+.h2{font-size: 1.2em; margin: 8px 0;}
 .minor{font-size:small; color:#888;}
 a{color:#044f86;}
 li{list-style:none;}

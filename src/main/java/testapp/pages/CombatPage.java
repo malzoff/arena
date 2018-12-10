@@ -4,7 +4,9 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 public class CombatPage extends BasePage {
 
-    CombatPage(PageParameters parameters) {
+    public CombatPage(PageParameters parameters) {
         super(parameters);
     }
+
+
 }
