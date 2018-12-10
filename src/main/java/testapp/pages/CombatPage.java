@@ -1,6 +1,8 @@
 package testapp.pages;
 
+import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.StatelessLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.IModel;
@@ -28,6 +30,12 @@ public class CombatPage extends BasePage {
         add(new ArenaParticipantPanel("myPanel", myModel));
         add(new ArenaParticipantPanel("enemyPanel", enemyModel));
 
+        add(new StatelessLink<MarkupContainer>("attack") {
+            @Override
+            public void onClick() {
+
+            }
+        });
 
         add(new ListView<String>("log", (IModel<List<String>>) () -> log) {
             @Override

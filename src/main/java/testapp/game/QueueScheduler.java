@@ -84,6 +84,7 @@ public class QueueScheduler {
                 player2.setState(READY);
                 player2.setEnemy(player1);
             }
+            HibernateUtil.closeSession(true);
             arenaQueue.notifyAll();
         }
     }

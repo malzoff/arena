@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html lang="en" xmlns:wicket="http://www.w3.org/1999/xlink">
 <wicket:extend>
-<h1>Combat Page</h1>
+    <h1 style="text-align:center;">Combat Page</h1>
+    <div wicket:id="enemyPanel" class="panel"/>
+    <a wicket:id="attack" class="btn">Атаковать</a>
+    <div wicket:id="myPanel" class="panel"/>
+    <ul class="panel">
+        <li wicket:id="log">
+            <span wicket:id="message" class="minor"/>
+        </li>
+    </ul>
 </wicket:extend>
 </html>

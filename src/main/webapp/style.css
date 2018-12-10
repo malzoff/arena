@@ -22,3 +22,12 @@ input {width:99%; margin: 8px auto;}
     display: block;
 }
 .hpBar {height:8px; background: brown; url('/images/hp.png') repeat-x; border-radius:4px;}
+.panel{border: 1px solid #005f8a;
+           border-radius: 4px;
+           width: 100%;
+           font-size: 16px;
+           background-color:#002b4e;
+           padding: 4px;
+           display: block;
+           text-align: center;
+           }

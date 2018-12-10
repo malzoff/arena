@@ -12,10 +12,11 @@ public class ArenaParticipantPanel extends Panel {
     public ArenaParticipantPanel(String id, IModel<ArenaParticipant> arenaParticipantModel) {
         super(id, arenaParticipantModel);
 
-        add(new Label("name", getModel(arenaParticipantModel.getObject().getName())));
-        add(new Label("damage", getModel(arenaParticipantModel.getObject().getMinDamage()
+        add(new Label("name", (IModel<String>) () -> arenaParticipantModel.getObject().getName()));
+        add(new Label("damage", (IModel<String>) () ->
+                arenaParticipantModel.getObject().getMinDamage()
                 + "~"
-                + getModel(arenaParticipantModel.getObject().getMaxDamage())))
+                + arenaParticipantModel.getObject().getMaxDamage())
         );
         add(new WebComponent("hp")
                 .add(new AttributeModifier("style"

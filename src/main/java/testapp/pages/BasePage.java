@@ -1,5 +1,6 @@
 package testapp.pages;
 
+import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.IModel;
@@ -34,7 +35,7 @@ abstract class BasePage extends WebPage {
 
     protected void checkForRedirectToHome() {
         if (!WebSession.get().isLoggedIn() && getPageClass() != HomePage.class) {
-            setResponsePage(HomePage.class, new PageParameters());
+            throw new RestartResponseException(HomePage.class, new PageParameters());
         }
     }
 
