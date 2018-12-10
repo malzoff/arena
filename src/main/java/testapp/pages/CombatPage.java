@@ -26,9 +26,6 @@ public class CombatPage extends BasePage {
         int userId = parameters.get("id").toInt(0);
         if (userId == 0) throw new RestartResponseException(HomePage.class, new PageParameters());
         Player player = HibernateUtil.get(Player.class, userId);
-        System.err.println("userId#" + userId);
-        System.err.println("myPlayerId#" + player.getId());
-        System.err.println("myPlayerEnemyId#" + player.getEnemyId());
 
         if (myModel == null) {
             myModel = (IModel<ArenaParticipant>) () -> new ArenaParticipant(player);
@@ -36,8 +33,6 @@ public class CombatPage extends BasePage {
         if (enemyModel == null) {
             enemyModel = (IModel<ArenaParticipant>) () -> new ArenaParticipant(player.getEnemy());
         }
-        System.err.println("enemy:" + enemyModel.getObject().getId());
-        System.err.println("me" + myModel.getObject().getId());
 
         add(new ArenaParticipantPanel("myPanel", myModel));
         add(new ArenaParticipantPanel("enemyPanel", enemyModel));
