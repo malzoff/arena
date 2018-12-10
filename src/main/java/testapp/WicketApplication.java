@@ -13,11 +13,13 @@ import testapp.db.HibernateUtil;
 import testapp.game.QueueScheduler;
 import testapp.pages.*;
 
+import java.util.Random;
 import java.util.regex.Pattern;
 
 public class WicketApplication extends WebApplication {
     public static final Pattern PASSWORD_PATTERN = Pattern.compile("^[a-zA-Z0-9]{6,16}$", Pattern.UNICODE_CASE);
     public static final Pattern USERNAME_PATTERN = Pattern.compile("^[a-zA-Z][a-zA-Z0-9]{5,15}$", Pattern.CASE_INSENSITIVE);
+    public static final Random RANDOM = new Random();
     private QueueScheduler queueScheduler;
 
     @Override
