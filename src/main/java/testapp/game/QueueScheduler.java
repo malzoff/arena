@@ -79,11 +79,15 @@ public class QueueScheduler {
             while (arenaQueue.size() >= 2) {
                 Player player1 = DAO.getPlayer(arenaQueue.poll());
                 Player player2 = DAO.getPlayer(arenaQueue.poll());
-                queueSize = Math.min(queueSize - 2, 0);
-                player1.setState(READY);
-                player1.setEnemyId(player2.getId());
-                player2.setState(READY);
-                player2.setEnemyId(player1.getId());
+                if (player1 != null && player2 != null) {
+                    queueSize = Math.min(queueSize - 2, 0);
+                    Arena arena = new Arena(new ArenaParticipant(player1), new ArenaParticipant(player2));
+                    Arena.add(arena);
+                    player1.setState(READY);
+                    player1.setCurrentArenaId(arena.getId());
+                    player2.setState(READY);
+                    player2.setCurrentArenaId(arena.getId());
+                }
             }
             HibernateUtil.closeSession(true);
             arenaQueue.notifyAll();

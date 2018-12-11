@@ -4,14 +4,13 @@ import org.apache.wicket.request.Request;
 import testapp.db.HibernateUtil;
 import testapp.db.beans.Player;
 import testapp.db.beans.User;
-import testapp.game.ArenaParticipant;
 import testapp.game.QueueScheduler;
 
 public class WebSession extends org.apache.wicket.protocol.http.WebSession {
 
     private int userId;
     private int currentHp;
-    private ArenaParticipant arenaParticipant;
+    private int currentArenaId;
 
     public WebSession(Request request) {
         super(request);
@@ -41,7 +40,6 @@ public class WebSession extends org.apache.wicket.protocol.http.WebSession {
     public void logout() {
         QueueScheduler.removePlayer(userId);
         userId = 0;
-        arenaParticipant = null;
         WebSession.get().invalidate();
     }
 
@@ -51,5 +49,13 @@ public class WebSession extends org.apache.wicket.protocol.http.WebSession {
 
     public Player getPlayer() {
         return HibernateUtil.get(Player.class, userId);
+    }
+
+    public int getCurrentArenaId() {
+        return currentArenaId;
+    }
+
+    public void setCurrentArenaId(int currentArenaId) {
+        this.currentArenaId = currentArenaId;
     }
 }

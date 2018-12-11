@@ -39,7 +39,7 @@ public class QueuePage extends BasePage {
             @Override
             protected void onTimer(AjaxRequestTarget target) {
                 if (WebSession.get().isLoggedIn()) {
-                    if (getPlayer().getState() == PlayerState.READY && getPlayer().getEnemy() != null) {
+                    if (getPlayer().getState() == PlayerState.READY) {
                         setResponsePage(WarmUpPage.class);
                     }
                 }
