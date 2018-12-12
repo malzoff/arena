@@ -12,6 +12,9 @@
         <property name="maxHp" type="int" not-null="true"/>
         <property name="currentHp" type="int" not-null="true"/>
         <property name="damage" type="int" not-null="true"/>
+        <property name="receivedDamage" type="int" not-null="true">
+            <column name="receivedDamage" not-null="true" default="0"/>
+        </property>
         <property name="nextHitTime" type="long" not-null="true"/>
         <property name="enemyId" type="int" not-null="true"/>
     </class>

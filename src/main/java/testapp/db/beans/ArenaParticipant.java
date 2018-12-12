@@ -12,6 +12,7 @@ public class ArenaParticipant {
     private int maxHp;
     private int currentHp;
     private int damage;
+    private int receivedDamage;
     private long nextHitTime;
     private int enemyId;
 
@@ -69,6 +70,14 @@ public class ArenaParticipant {
 
     public void setDamage(int damage) {
         this.damage = damage;
+    }
+
+    public int getReceivedDamage() {
+        return receivedDamage;
+    }
+
+    public void setReceivedDamage(int receivedDamage) {
+        this.receivedDamage = receivedDamage;
     }
 
     public long getNextHitTime() {

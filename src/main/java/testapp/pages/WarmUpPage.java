@@ -7,6 +7,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.util.time.Duration;
+import testapp.WebSession;
 import testapp.game.PlayerState;
 import testapp.game.TimeUtil;
 
@@ -16,7 +17,8 @@ public class WarmUpPage extends BasePage {
         super(parameters);
 
         getCombatLog().clear();
-        final long startTime = TimeUtil.now() + TimeUtil.SECOND * 30;
+        WebSession.get().setCurrentHp(getArenaParticipant().getMaxHp());
+        final long startTime = TimeUtil.now() + TimeUtil.SECOND * 5;
         Label label = new Label("timer"
                 , (IModel<Integer>) () -> (int) Math.max((startTime - TimeUtil.now()) / TimeUtil.SECOND, 0)
         );

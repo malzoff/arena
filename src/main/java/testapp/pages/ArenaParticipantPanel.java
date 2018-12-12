@@ -22,7 +22,7 @@ public class ArenaParticipantPanel extends Panel {
                 .add(new AttributeModifier("style"
                         , (IModel<String>) () -> {
                     ArenaParticipant ap = arenaParticipantModel.getObject();
-                    int hpPercents = Math.max((ap.getCurrentHp() / ap.getMaxHp() * 100), 0);
+                    int hpPercents = (int) Math.max((1f * ap.getCurrentHp() / ap.getMaxHp() * 100), 0);
                     return "width:" + hpPercents + "%";
                 }))
         );
