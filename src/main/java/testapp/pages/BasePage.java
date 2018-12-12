@@ -3,12 +3,15 @@ package testapp.pages;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import testapp.WebSession;
+import testapp.db.beans.ArenaParticipant;
 import testapp.db.beans.Player;
+import testapp.db.beans.User;
 import testapp.game.TimeUtil;
+
+import java.util.List;
 
 abstract class BasePage extends WebPage {
 
@@ -43,8 +46,24 @@ abstract class BasePage extends WebPage {
         return WebSession.get().getUserId();
     }
 
-    public <T> IModel<T> getModel(T o) {
-        return (IModel<T>) () -> o;
+    protected User getUser() {
+        return WebSession.get().getUser();
+    }
+
+    protected ArenaParticipant getArenaParticipant() {
+        return WebSession.get().getArenaParticipant();
+    }
+
+    protected ArenaParticipant getArenaParticipantEnemy() {
+        return WebSession.get().getArenaParticipantEnemy();
+    }
+
+    protected List<String> getCombatLog() {
+        return WebSession.get().getCombatLog();
+    }
+
+    public boolean isLoggedIn() {
+        return WebSession.get().isLoggedIn();
     }
 
     @Override

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping schema="duels">
+
+    <class name="testapp.db.beans.ArenaParticipant" table="d_player" dynamic-update="true">
+        <cache usage="read-write"/>
+        <id column="id" name="id" type="int">
+            <generator class="assigned"/>
+        </id>
+        <property name="maxHp" type="int" not-null="true"/>
+        <property name="currentHp" type="int" not-null="true"/>
+        <property name="damage" type="int" not-null="true"/>
+        <property name="nextHitTime" type="long" not-null="true"/>
+        <property name="enemyId" type="int" not-null="true"/>
+    </class>
+
+</hibernate-mapping>

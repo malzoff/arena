@@ -1,5 +1,6 @@
 package testapp.db;
 
+import testapp.db.beans.ArenaParticipant;
 import testapp.db.beans.Player;
 import testapp.db.beans.User;
 
@@ -26,5 +27,21 @@ public class DAO {
 
     public static Player getPlayer(int id) {
         return HibernateUtil.get(Player.class, id);
+    }
+
+    public static ArenaParticipant getArenaParticipant(int id) {
+        ArenaParticipant ap = HibernateUtil.get(ArenaParticipant.class, id);
+        if (ap == null) {
+            ap = createArenaParticipant(getPlayer(id));
+        }
+
+        return ap;
+    }
+
+    public static ArenaParticipant createArenaParticipant(Player player) {
+        ArenaParticipant ap = new ArenaParticipant(player);
+        HibernateUtil.getSession().persist(player);
+        HibernateUtil.closeSession(true);
+        return ap;
     }
 }

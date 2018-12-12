@@ -14,10 +14,7 @@
         <property name="state" type="int" not-null="true">
             <column name="state" default="0"/>
         </property>
-        <property name="currentArenaId" type="int" not-null="true">
-            <column name="currentArenaId" default="0"/>
-        </property>
-        <property name="name" length="16"/>
+        <property name="name" type="text" length="16"/>
     </class>
 
 </hibernate-mapping>

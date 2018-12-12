@@ -1,16 +1,23 @@
 package testapp;
 
 import org.apache.wicket.request.Request;
+import testapp.db.DAO;
 import testapp.db.HibernateUtil;
+import testapp.db.beans.ArenaParticipant;
 import testapp.db.beans.Player;
 import testapp.db.beans.User;
 import testapp.game.QueueScheduler;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class WebSession extends org.apache.wicket.protocol.http.WebSession {
 
     private int userId;
     private int currentHp;
-    private int currentArenaId;
+    private ArenaParticipant arenaParticipant;
+    private ArenaParticipant arenaParticipantEnemy;
+    private List<String> combatLog = new ArrayList<>();
 
     public WebSession(Request request) {
         super(request);
@@ -51,11 +58,25 @@ public class WebSession extends org.apache.wicket.protocol.http.WebSession {
         return HibernateUtil.get(Player.class, userId);
     }
 
-    public int getCurrentArenaId() {
-        return currentArenaId;
+    public ArenaParticipant getArenaParticipant() {
+        if (arenaParticipant == null) {
+            arenaParticipant = DAO.getArenaParticipant(userId);
+        }
+        return arenaParticipant;
     }
 
-    public void setCurrentArenaId(int currentArenaId) {
-        this.currentArenaId = currentArenaId;
+    public ArenaParticipant getArenaParticipantEnemy() {
+        if (arenaParticipantEnemy == null) {
+            arenaParticipantEnemy = DAO.getArenaParticipant(getArenaParticipant().getEnemyId());
+        }
+        return arenaParticipantEnemy;
+    }
+
+    public List<String> getCombatLog() {
+        return combatLog;
+    }
+
+    public User getUser() {
+        return DAO.getUser(userId);
     }
 }

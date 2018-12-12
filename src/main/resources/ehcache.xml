@@ -17,5 +17,6 @@
 
     <cache name="testapp.db.beans.User" maxElementsInMemory="1000"/>
     <cache name="testapp.db.beans.Player" maxElementsInMemory="1000"/>
+    <cache name="testapp.db.beans.ArenaParticipant" maxElementsInMemory="1000"/>
 
 </ehcache>

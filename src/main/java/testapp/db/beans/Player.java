@@ -1,7 +1,6 @@
 package testapp.db.beans;
 
 import testapp.db.DAO;
-import testapp.game.Arena;
 import testapp.game.PlayerState;
 
 public class Player {
@@ -10,7 +9,6 @@ public class Player {
     private int level;
     private int rating;
     private int state;
-    private int currentArenaId;
     private String name;
 
     public Player() {
@@ -21,14 +19,6 @@ public class Player {
         level = 1;
         rating = 1500;
         state = PlayerState.IDLE;
-    }
-
-    public int getDamage() {
-        return 9 + getLevel();
-    }
-
-    public int getHp() {
-        return 99 + getLevel();
     }
 
     public int getId() {
@@ -66,14 +56,6 @@ public class Player {
         this.state = state;
     }
 
-    public int getCurrentArenaId() {
-        return currentArenaId;
-    }
-
-    public void setCurrentArenaId(int currentArenaId) {
-        this.currentArenaId = currentArenaId;
-    }
-
     public String getName() {
         if (name == null) {
             name = DAO.getUser(id).getLogin();
@@ -83,9 +65,5 @@ public class Player {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Arena getCurrentArena() {
-        return Arena.get(currentArenaId);
     }
 }

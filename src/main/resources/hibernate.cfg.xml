@@ -22,6 +22,7 @@
 
         <mapping resource="testapp/db/beans/User.hbm.xml"/>
         <mapping resource="testapp/db/beans/Player.hbm.xml"/>
+        <mapping resource="testapp/db/beans/ArenaParticipant.hbm.xml"/>
     </session-factory>
 
 </hibernate-configuration>

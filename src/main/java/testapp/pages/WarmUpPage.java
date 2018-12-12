@@ -15,6 +15,7 @@ public class WarmUpPage extends BasePage {
     public WarmUpPage(PageParameters parameters) {
         super(parameters);
 
+        getCombatLog().clear();
         final long startTime = TimeUtil.now() + TimeUtil.SECOND * 30;
         Label label = new Label("timer"
                 , (IModel<Integer>) () -> (int) Math.max((startTime - TimeUtil.now()) / TimeUtil.SECOND, 0)
@@ -34,6 +35,6 @@ public class WarmUpPage extends BasePage {
     }
 
     private String getEnemyName() {
-        return getPlayer().getCurrentArena().getEnemy(getPlayer().getId()).getName();
+        return getArenaParticipantEnemy().getName();
     }
 }

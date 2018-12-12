@@ -2,6 +2,7 @@ package testapp.game;
 
 import testapp.db.DAO;
 import testapp.db.HibernateUtil;
+import testapp.db.beans.ArenaParticipant;
 import testapp.db.beans.Player;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -19,14 +20,6 @@ public class QueueScheduler {
         arenaQueue.clear();
         queueSize = 0;
         new Thread(this::run).start();
-    }
-
-    public boolean isStopped() {
-        return stopped;
-    }
-
-    public void setStopped(boolean stopped) {
-        this.stopped = stopped;
     }
 
     public static boolean addPlayer(Player player) {
@@ -77,22 +70,27 @@ public class QueueScheduler {
     private void processQueue() {
         synchronized (arenaQueue) {
             while (arenaQueue.size() >= 2) {
-                Player player1 = DAO.getPlayer(arenaQueue.poll());
-                Player player2 = DAO.getPlayer(arenaQueue.poll());
-                if (player1 != null && player2 != null) {
-                    queueSize = Math.min(queueSize - 2, 0);
-                    Arena arena = new Arena(new ArenaParticipant(player1), new ArenaParticipant(player2));
-                    Arena.add(arena);
-                    player1.setState(READY);
-                    player1.setCurrentArenaId(arena.getId());
-                    player2.setState(READY);
-                    player2.setCurrentArenaId(arena.getId());
-                }
+                int player1Id = arenaQueue.poll();
+                int player2Id = arenaQueue.poll();
+                queueSize = Math.max(queueSize - 2, 0);
+
+                prepareEntities(player1Id);
+                DAO.getArenaParticipant(player1Id).setEnemyId(player2Id);
+                prepareEntities(player2Id);
+                DAO.getArenaParticipant(player2Id).setEnemyId(player1Id);
             }
             HibernateUtil.closeSession(true);
             arenaQueue.notifyAll();
         }
     }
+
+    private void prepareEntities(int player1Id) {
+        Player player = DAO.getPlayer(player1Id);
+        player.setState(READY);
+        ArenaParticipant ap = DAO.getArenaParticipant(player1Id);
+        ap.updateStats(player.getLevel());
+    }
+
 
     public void stop() {
         synchronized (this) {
