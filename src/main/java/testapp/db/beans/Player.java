@@ -66,4 +66,14 @@ public class Player {
     public void setName(String name) {
         this.name = name;
     }
+
+    public void addLevel() {
+        level += 1;
+    }
+
+    public void addRating(int i) {
+        if (rating > 0) {
+            rating += i;
+        }
+    }
 }

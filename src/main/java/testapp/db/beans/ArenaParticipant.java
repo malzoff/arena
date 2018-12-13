@@ -44,7 +44,7 @@ public class ArenaParticipant {
         return maxHp;
     }
 
-    public int getMaxHp(int playerLevel) {
+    private int getMaxHp(int playerLevel) {
         return playerLevel - 1 + 100;
     }
 
@@ -64,7 +64,7 @@ public class ArenaParticipant {
         return damage;
     }
 
-    public int getDamage(int playerLevel) {
+    private int getDamage(int playerLevel) {
         return playerLevel - 1 + 10;
     }
 
@@ -110,7 +110,7 @@ public class ArenaParticipant {
 
     public int doDamage(ArenaParticipant target) {
         int damageAmount = getActualDamage();
-        nextHitTime += nextHitTime == 0 ? TimeUtil.now() + HIT_COOLDOWN : HIT_COOLDOWN;
+        nextHitTime = TimeUtil.now() + HIT_COOLDOWN;
         target.receiveDamage(damageAmount);
         return damageAmount;
     }

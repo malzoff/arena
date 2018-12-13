@@ -1,5 +1,6 @@
 package testapp.pages;
 
+import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AbstractAjaxTimerBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -20,9 +21,11 @@ public class CombatPage extends BasePage {
 
     public CombatPage(PageParameters parameters) {
         super(parameters);
+
         add(new ArenaParticipantPanel("myPanel", (IModel<ArenaParticipant>) () -> getArenaParticipant()));
         add(new ArenaParticipantPanel("enemyPanel", (IModel<ArenaParticipant>) () -> getArenaParticipantEnemy()));
-        add(new StatelessLink<MarkupContainer>("attack") {
+        StatelessLink attackLink;
+        add(attackLink = new StatelessLink<MarkupContainer>("attack") {
 
                     @Override
                     public void onClick() {
@@ -36,12 +39,29 @@ public class CombatPage extends BasePage {
                             if (enemyAP.getCurrentHp() <= 0) {
                                 getCombatLog().add(0, "Вы убили " + enemyAP.getName() + ".");
                             }
+                            setEnabled(false);
                         }
                         setResponsePage(CombatPage.class);
                     }
                 }
-                .setEnabled(getArenaParticipant().canHit() && getArenaParticipantEnemy().getCurrentHp() > 0)
         );
+        attackLink.setOutputMarkupId(true);
+
+        StatelessLink resultLink;
+        add(resultLink = new StatelessLink<MarkupContainer>("resultLink") {
+            @Override
+            public void onClick() {
+                if (getCombatResult() != null) {
+                    getPlayer().addLevel();
+                    getPlayer().addRating(getCombatResult().equals("win") ? +1 : -1);
+                    getArenaParticipant().updateStats(getPlayer().getLevel());
+                }
+                setResponsePage(ResultsPage.class, new PageParameters().add("r", getCombatResult()));
+            }
+        });
+        resultLink.setOutputMarkupId(true);
+        resultLink.setEnabled(false).setVisible(false);
+
         WebMarkupContainer container;
         add(container = new WebMarkupContainer("container"));
         container.setOutputMarkupId(true);
@@ -53,25 +73,53 @@ public class CombatPage extends BasePage {
             }
         });
 
-        add(new AbstractAjaxTimerBehavior(Duration.milliseconds(250)) {
+        add(new AbstractAjaxTimerBehavior(Duration.milliseconds(200)) {
             @Override
             protected void onTimer(AjaxRequestTarget target) {
                 int hpLoss = getArenaParticipant().getReceivedDamage();
                 if (hpLoss > 0) {
-                    getCombatLog().add(0, getArenaParticipantEnemy().getName() + " ударил Вас на "  + hpLoss +" урона.");
+                    getCombatLog().add(0, getArenaParticipantEnemy().getName() + " ударил Вас на " + hpLoss + " урона.");
+                    if (WebSession.get().getCurrentHp() <= 0) {
+                        getCombatLog().add(0, getArenaParticipantEnemy().getName() + " убил Вас.");
+                    }
                 }
                 getArenaParticipant().setReceivedDamage(0);
-                if (WebSession.get().getCurrentHp() <= 0) {
-                    getCombatLog().add(0, getArenaParticipantEnemy().getName() + " убил Вас.");
+                if (!attackLink.isEnabled() && getArenaParticipant().canHit()
+                        && getArenaParticipantEnemy().getCurrentHp() > 0
+                        && getCombatResult() == null
+                ) {
+                    attackLink.setEnabled(true);
+                    target.add(attackLink);
                 }
-                target.add(container);
+                if (getCombatResult() != null && !resultLink.isEnabled()) {
+                    resultLink.setEnabled(true).setVisible(true);
+                    target.add(resultLink);
+                }
+                target.add(container, get("myPanel"));
+            }
+
+            @Override
+            public void beforeRender(Component component) {
+                super.beforeRender(component);
+
             }
         });
+    }
+
+    private String getCombatResult() {
+        if (getArenaParticipant().getCurrentHp() > 0) {
+            if (getArenaParticipantEnemy().getCurrentHp() <= 0) {
+                return "win";
+            } else {
+                return null;
+            }
+        } else return "defeat";
     }
 
     @Override
     protected void onBeforeRender() {
         super.onBeforeRender();
         get("attack").setEnabled(getArenaParticipant().canHit() && getArenaParticipantEnemy().getCurrentHp() > 0);
+        get("resultLink").setEnabled(getCombatResult() != null).setVisible(getCombatResult() != null);
     }
 }

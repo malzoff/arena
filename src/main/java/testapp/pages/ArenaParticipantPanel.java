@@ -11,7 +11,7 @@ public class ArenaParticipantPanel extends Panel {
 
     public ArenaParticipantPanel(String id, IModel<ArenaParticipant> arenaParticipantModel) {
         super(id, arenaParticipantModel);
-
+        setOutputMarkupId(true);
         add(new Label("name", (IModel<String>) () -> arenaParticipantModel.getObject().getName()));
         add(new Label("damage", (IModel<String>) () ->
                 arenaParticipantModel.getObject().getMinDamage()
