@@ -12,7 +12,6 @@ import org.apache.wicket.validation.validator.StringValidator;
 import testapp.WebSession;
 import testapp.db.DAO;
 import testapp.db.HibernateUtil;
-import testapp.db.beans.Player;
 import testapp.db.beans.User;
 
 import static testapp.WicketApplication.PASSWORD_PATTERN;
@@ -26,7 +25,6 @@ public class HomePage extends BasePage {
         super(parameters);
 
         add(new FeedbackPanel("feedbackPanel"));
-
 
 
         add(new Form<MarkupContainer>("form") {
@@ -63,8 +61,7 @@ public class HomePage extends BasePage {
                     User user = DAO.getUser(username);
                     if (user == null) {
                         user = DAO.createUser(username, password);
-                        Player player = DAO.createPlayer(user);
-                        DAO.createArenaParticipant(player);
+                        DAO.createArenaParticipant(DAO.createPlayer(user));
                         HibernateUtil.closeSession(true);
                         WebSession.get().setUser(user);
                         setResponsePage(MenuPage.class);

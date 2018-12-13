@@ -14,6 +14,10 @@ public class DAO {
         return (Player) HibernateUtil.persist(new Player(user.getId()));
     }
 
+    public static ArenaParticipant createArenaParticipant(Player player) {
+        return (ArenaParticipant) HibernateUtil.persist(new ArenaParticipant(player));
+    }
+
     public static User getUser(int id) {
         return HibernateUtil.get(User.class, id);
     }
@@ -30,18 +34,6 @@ public class DAO {
     }
 
     public static ArenaParticipant getArenaParticipant(int id) {
-        ArenaParticipant ap = HibernateUtil.get(ArenaParticipant.class, id);
-        if (ap == null) {
-            ap = createArenaParticipant(getPlayer(id));
-        }
-
-        return ap;
-    }
-
-    public static ArenaParticipant createArenaParticipant(Player player) {
-        ArenaParticipant ap = new ArenaParticipant(player);
-        HibernateUtil.getSession().persist(player);
-        HibernateUtil.closeSession(true);
-        return ap;
+        return HibernateUtil.get(ArenaParticipant.class, id);
     }
 }

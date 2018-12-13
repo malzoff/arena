@@ -121,6 +121,7 @@ public class ArenaParticipant {
 
     private void receiveDamage(int damageAmount) {
         currentHp -= damageAmount;
+        setReceivedDamage(damageAmount);
     }
 
     public String getName() {

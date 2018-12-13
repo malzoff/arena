@@ -53,16 +53,16 @@ public class CombatPage extends BasePage {
             }
         });
 
-        add(new AbstractAjaxTimerBehavior(Duration.seconds(1)) {
+        add(new AbstractAjaxTimerBehavior(Duration.milliseconds(250)) {
             @Override
             protected void onTimer(AjaxRequestTarget target) {
                 int hpLoss = getArenaParticipant().getReceivedDamage();
-                System.err.println("hpLoss=" + hpLoss);
                 if (hpLoss > 0) {
-                    getCombatLog().add(getArenaParticipantEnemy().getName() + " ударил Вас на "  + hpLoss +" урона.");
+                    getCombatLog().add(0, getArenaParticipantEnemy().getName() + " ударил Вас на "  + hpLoss +" урона.");
                 }
+                getArenaParticipant().setReceivedDamage(0);
                 if (WebSession.get().getCurrentHp() <= 0) {
-                    getCombatLog().add(getArenaParticipantEnemy().getName() + " убил Вас.");
+                    getCombatLog().add(0, getArenaParticipantEnemy().getName() + " убил Вас.");
                 }
                 target.add(container);
             }

@@ -4,7 +4,7 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping schema="duels">
 
-    <class name="testapp.db.beans.ArenaParticipant" table="d_player" dynamic-update="true">
+    <class name="testapp.db.beans.ArenaParticipant" table="d_arena_participant" dynamic-update="true">
         <cache usage="read-write"/>
         <id column="id" name="id" type="int">
             <generator class="assigned"/>

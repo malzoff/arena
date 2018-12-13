@@ -15,8 +15,6 @@ public class WebSession extends org.apache.wicket.protocol.http.WebSession {
 
     private int userId;
     private int currentHp;
-    private ArenaParticipant arenaParticipant;
-    private ArenaParticipant arenaParticipantEnemy;
     private List<String> combatLog = new ArrayList<>();
 
     public WebSession(Request request) {
@@ -59,17 +57,11 @@ public class WebSession extends org.apache.wicket.protocol.http.WebSession {
     }
 
     public ArenaParticipant getArenaParticipant() {
-        if (arenaParticipant == null) {
-            arenaParticipant = DAO.getArenaParticipant(userId);
-        }
-        return arenaParticipant;
+        return DAO.getArenaParticipant(userId);
     }
 
     public ArenaParticipant getArenaParticipantEnemy() {
-        if (arenaParticipantEnemy == null) {
-            arenaParticipantEnemy = DAO.getArenaParticipant(getArenaParticipant().getEnemyId());
-        }
-        return arenaParticipantEnemy;
+        return DAO.getArenaParticipant(getArenaParticipant().getEnemyId());
     }
 
     public List<String> getCombatLog() {
