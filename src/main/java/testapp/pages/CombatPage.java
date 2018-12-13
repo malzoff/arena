@@ -19,6 +19,9 @@ import java.util.List;
 
 public class CombatPage extends BasePage {
 
+    public static int WIN = 1;
+    public static int DEFEAT = 2;
+
     public CombatPage(PageParameters parameters) {
         super(parameters);
 
@@ -51,12 +54,13 @@ public class CombatPage extends BasePage {
         add(resultLink = new StatelessLink<MarkupContainer>("resultLink") {
             @Override
             public void onClick() {
-                if (getCombatResult() != null) {
+                int result = getCombatResult();
+                if (result != 0) {
                     getPlayer().addLevel();
-                    getPlayer().addRating(getCombatResult().equals("win") ? +1 : -1);
+                    getPlayer().addRating(result == WIN ? +1 : -1);
                     getArenaParticipant().updateStats(getPlayer().getLevel());
+                    setResponsePage(ResultsPage.class, getPageParameters().add("r", result));
                 }
-                setResponsePage(ResultsPage.class, new PageParameters().add("r", getCombatResult()));
             }
         });
         resultLink.setOutputMarkupId(true);
@@ -84,16 +88,17 @@ public class CombatPage extends BasePage {
                     }
                 }
                 getArenaParticipant().setReceivedDamage(0);
-                if (!attackLink.isEnabled() && getArenaParticipant().canHit()
-                        && getArenaParticipantEnemy().getCurrentHp() > 0
-                        && getCombatResult() == null
+                if (!attackLink.isEnabled() && getArenaParticipant().canHit() && getArenaParticipantEnemy().getCurrentHp() > 0
+                        && getCombatResult() == 0
                 ) {
                     attackLink.setEnabled(true);
                     target.add(attackLink);
+                    setResponsePage(CombatPage.class);
                 }
-                if (getCombatResult() != null && !resultLink.isEnabled()) {
+                if (getCombatResult() != 0 && !resultLink.isEnabled()) {
                     resultLink.setEnabled(true).setVisible(true);
                     target.add(resultLink);
+                    setResponsePage(CombatPage.class);
                 }
                 target.add(container, get("myPanel"));
             }
@@ -106,20 +111,20 @@ public class CombatPage extends BasePage {
         });
     }
 
-    private String getCombatResult() {
+    private int getCombatResult() {
         if (getArenaParticipant().getCurrentHp() > 0) {
             if (getArenaParticipantEnemy().getCurrentHp() <= 0) {
-                return "win";
+                return WIN;
             } else {
-                return null;
+                return 0;
             }
-        } else return "defeat";
+        } else return DEFEAT;
     }
 
     @Override
     protected void onBeforeRender() {
         super.onBeforeRender();
         get("attack").setEnabled(getArenaParticipant().canHit() && getArenaParticipantEnemy().getCurrentHp() > 0);
-        get("resultLink").setEnabled(getCombatResult() != null).setVisible(getCombatResult() != null);
+        get("resultLink").setEnabled(getCombatResult() != 0).setVisible(getCombatResult() != 0);
     }
 }
