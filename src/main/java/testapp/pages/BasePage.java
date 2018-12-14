@@ -13,10 +13,11 @@ import testapp.game.TimeUtil;
 
 import java.util.List;
 
-abstract class BasePage extends WebPage {
+public abstract class BasePage extends WebPage {
 
-    BasePage(PageParameters parameters) {
-        checkForRedirectToHome();
+    public BasePage(PageParameters parameters) {
+        super(parameters);
+        checkForRedirect();
         add(new Label("workTime", getPageGenerationTime()));
     }
 
@@ -36,7 +37,10 @@ abstract class BasePage extends WebPage {
         return TimeUtil.now() - RequestCycle.get().getStartTime();
     }
 
-    protected void checkForRedirectToHome() {
+    protected void checkForRedirect() {
+        redirectToHomePage();
+    }
+    private void redirectToHomePage() {
         if (!WebSession.get().isLoggedIn() && getPageClass() != HomePage.class) {
             throw new RestartResponseException(HomePage.class, new PageParameters());
         }
@@ -69,6 +73,6 @@ abstract class BasePage extends WebPage {
     @Override
     protected void onBeforeRender() {
         super.onBeforeRender();
-        checkForRedirectToHome();
+        checkForRedirect();
     }
 }

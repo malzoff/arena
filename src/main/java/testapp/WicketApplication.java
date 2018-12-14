@@ -46,7 +46,7 @@ public class WicketApplication extends WebApplication {
         mountPage("/queue", QueuePage.class);
         mountPage("/queue/warmup", WarmUpPage.class);
         mountPage("/combat", CombatPage.class);
-        mountPage("/combat/results", ResultsPage.class);
+        mountPage("/result", ResultPage.class);
     }
 
     @Override

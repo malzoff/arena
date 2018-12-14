@@ -16,6 +16,7 @@ public class WebSession extends org.apache.wicket.protocol.http.WebSession {
     private int userId;
     private int currentHp;
     private List<String> combatLog = new ArrayList<>();
+    private String result;
 
     public WebSession(Request request) {
         super(request);
@@ -70,5 +71,13 @@ public class WebSession extends org.apache.wicket.protocol.http.WebSession {
 
     public User getUser() {
         return DAO.getUser(userId);
+    }
+
+    public void setCombatResult(String result) {
+        this.result = result;
+    }
+
+    public String geCombatResult() {
+        return result;
     }
 }

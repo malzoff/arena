@@ -3,7 +3,13 @@
 <wicket:extend>
     <h1 style="text-align: center;">Результаты боя</h1>
     <h2 style="text-align: center; margin: 16px auto;" wicket:id="result"/>
-    <div wicket:id="stats"/>
-    <a wicket:id="back">Назад</a>
+    <div class="panel">
+        <div>
+            Рейтинг: <span wicket:id="rating"/>
+        </div>
+        <div>Урон: <span wicket:id="damage"/></div>
+        <div>Жизни: <span wicket:id="hp"/></div>
+    </div>
+    <a wicket:id="back" class="btn">Назад</a>
 </wicket:extend>
 </html>
