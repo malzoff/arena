@@ -59,7 +59,7 @@ public class CombatPage extends BasePage {
                     getPlayer().addLevel();
                     getPlayer().addRating(result == WIN ? +1 : -1);
                     getArenaParticipant().updateStats(getPlayer().getLevel());
-                    setResponsePage(ResultsPage.class, getPageParameters().add("r", result));
+                    setResponsePage(ResultsPage.class, new PageParameters().set("res", result));
                 }
             }
         });

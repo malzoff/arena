@@ -20,6 +20,7 @@ public class HibernateUtil {
                     new StandardServiceRegistryBuilder()
                             .applySettings(configuration.getProperties())
                             .build());
+            sessionFactory.getStatistics().setStatisticsEnabled(true);
         } catch (Throwable ex) {
             System.err.println("Initial SessionFactory creation failed." + ex);
             throw new ExceptionInInitializerError(ex);
@@ -27,13 +28,16 @@ public class HibernateUtil {
     }
 
     public static SessionFactory getSessionFactory() {
+        if (sessionFactory == null) {
+            init();
+        }
         return sessionFactory;
     }
 
     public static Session getSession() {
         Session s = session.get();
         if (s == null) {
-            s = sessionFactory.openSession();
+            s = getSessionFactory().openSession();
             s.setFlushMode(FlushMode.COMMIT);
             s.setCacheMode(CacheMode.NORMAL);
             session.set(s);

@@ -11,8 +11,7 @@ public class ResultsPage extends BasePage {
     ResultsPage(PageParameters parameters) {
         super(parameters);
 
-        boolean isWinner = parameters.get("r").toInt() == CombatPage.WIN ;
-
+        boolean isWinner = parameters.get("res").toInt() == CombatPage.WIN;
         add(new Label("result", (IModel<String>) () -> isWinner ? "Победа!" : "Поражение..."));
         add(new Label("rating", (IModel<String>) () -> String.valueOf(getPlayer().getRating())));
         add(new ArenaParticipantPanel("stats", (IModel<ArenaParticipant>) () -> getArenaParticipant()));
