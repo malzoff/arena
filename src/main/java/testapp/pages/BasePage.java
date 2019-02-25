@@ -15,6 +15,8 @@ import java.util.List;
 
 public abstract class BasePage extends WebPage {
 
+    private static final long serialVersionUID = 1L;
+
     public BasePage(PageParameters parameters) {
         super(parameters);
         checkForRedirect();

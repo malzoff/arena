@@ -19,8 +19,6 @@ import static testapp.WicketApplication.USERNAME_PATTERN;
 
 public class HomePage extends BasePage {
 
-    private static final long serialVersionUID = 1L;
-
     public HomePage(final PageParameters parameters) {
         super(parameters);
 
