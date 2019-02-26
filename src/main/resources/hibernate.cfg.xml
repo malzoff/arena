@@ -10,7 +10,7 @@
         <property name="connection.url">jdbc:mysql://localhost:3306/duels</property>
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="connection.username">root</property>
-        <property name="connection.password">myHeccrbqCnbkm11SQL</property>
+        <property name="connection.password">123qwe</property>
         <property name="connection.pool_size">100</property>
         <property name="current_session_context_class">thread</property>
         <property name="show_sql">false</property>
