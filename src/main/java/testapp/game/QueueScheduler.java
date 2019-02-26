@@ -51,24 +51,16 @@ public class QueueScheduler {
         while (!stopped) {
             try {
                 processQueue();
-                HibernateUtil.closeSession(true);
-            } catch (Throwable t) {
-                t.printStackTrace();
-                HibernateUtil.closeSession(false);
-            }
-            try {
                 Thread.sleep(500);
             } catch (Throwable tt) {
                 /*do nothing*/
             }
         }
-        synchronized (this) {
-            notifyAll();
-        }
     }
 
     private void processQueue() {
         synchronized (arenaQueue) {
+            boolean needCommit = arenaQueue.size() >= 2;
             while (arenaQueue.size() >= 2) {
                 int player1Id = arenaQueue.poll();
                 int player2Id = arenaQueue.poll();
@@ -79,7 +71,9 @@ public class QueueScheduler {
                 prepareEntities(player2Id);
                 DAO.getArenaParticipant(player2Id).setEnemyId(player1Id);
             }
-            HibernateUtil.closeSession(true);
+            if (needCommit) {
+                HibernateUtil.closeSession(true);
+            }
             arenaQueue.notifyAll();
         }
     }
@@ -90,7 +84,6 @@ public class QueueScheduler {
         ArenaParticipant ap = DAO.getArenaParticipant(player1Id);
         ap.updateStats(player.getLevel());
     }
-
 
     public void stop() {
         synchronized (this) {

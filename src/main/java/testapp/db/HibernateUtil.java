@@ -20,7 +20,7 @@ public class HibernateUtil {
                     new StandardServiceRegistryBuilder()
                             .applySettings(configuration.getProperties())
                             .build());
-            sessionFactory.getStatistics().setStatisticsEnabled(true);
+            sessionFactory.getStatistics().setStatisticsEnabled(false);
         } catch (Throwable ex) {
             System.err.println("Initial SessionFactory creation failed." + ex);
             throw new ExceptionInInitializerError(ex);
@@ -75,5 +75,23 @@ public class HibernateUtil {
     public static Object persist(Object o) {
         getSession().persist(o);
         return o;
+    }
+
+    public static class QueriesInfo {
+        private int count;
+        private double duration;
+
+        public QueriesInfo(int count, double duration) {
+            this.count = count;
+            this.duration = duration;
+        }
+
+        public long getCount() {
+            return count;
+        }
+
+        public double getDuration() {
+            return duration;
+        }
     }
 }

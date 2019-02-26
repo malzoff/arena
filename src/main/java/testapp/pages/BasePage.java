@@ -3,6 +3,7 @@ package testapp.pages;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import testapp.WebSession;
@@ -20,7 +21,7 @@ public abstract class BasePage extends WebPage {
     public BasePage(PageParameters parameters) {
         super(parameters);
         checkForRedirect();
-        add(new Label("workTime", getPageGenerationTime()));
+        add(new Label("workTime", ""));
     }
 
     protected Player getPlayer() {
@@ -76,5 +77,6 @@ public abstract class BasePage extends WebPage {
     protected void onBeforeRender() {
         super.onBeforeRender();
         checkForRedirect();
+        get("workTime").setDefaultModel((IModel<Long>) () -> getPageGenerationTime());
     }
 }
