@@ -1,4 +1,8 @@
 # arena
+DB info:
+connection.url = jdbc:mysql://localhost:3306/duels
+connection.username = root
+connection.password = 123qwe
 
 Description:
 При первом входе в игру предлагается авторизоваться используя имя и пароль.
