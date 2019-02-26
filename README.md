@@ -1,5 +1,4 @@
 # arena
-Testing Skillz WebApp
 
 Description:
 При первом входе в игру предлагается авторизоваться используя имя и пароль.
