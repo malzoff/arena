@@ -1,0 +1,1 @@
+create index d_user_login_idx on d_user(login);
